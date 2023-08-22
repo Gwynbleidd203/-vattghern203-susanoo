@@ -1,6 +1,6 @@
 {
   "name": "susanoo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A boilerplate creator for front-end developers",
   "main": "index.js",
   "scripts": {
