@@ -14,7 +14,7 @@
   "author": "vattghern203",
   "license": "ISC",
   "bin": {
-    "susanoo": "./boilerplate.js"
+    "susanoo": "./bin/susanoo.js"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.5"
