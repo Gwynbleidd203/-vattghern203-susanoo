@@ -1,0 +1,22 @@
+{
+  "name": "kuchiyose",
+  "version": "1.0.0",
+  "description": "A boilerplate creator for front-end developers",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.js"
+  },
+  "keywords": [
+    "front-end",
+    "boilerplate"
+  ],
+  "author": "vattghern203",
+  "license": "ISC",
+  "bin": {
+    "susanoo": "./boilerplate.js"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
