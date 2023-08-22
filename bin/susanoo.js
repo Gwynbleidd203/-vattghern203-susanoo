@@ -44,14 +44,17 @@ async function main() {
 
       process.chdir(projectPath)
 
-      console.log('Installing dependencies...')
+      console.log('Activating Mangekyo Sharigan...')
+      console.log('AKA Installing dependencies...')
       execSync('npm install');
 
-      console.log('Removing useless files...')
+      console.log('Amaterasu!')
+      console.log('AKA Removing useless files...')
       execSync('npx rimraf ./.git')
       fs.rm(path.join(projectPath, 'bin'), { recursive: true})
 
-      console.log('The installation is done, this is ready to use !')
+      console.log('Perfect Susanoo completed.')
+      console.log('AKA The installation is done, this is ready to use !')
 
     } catch (error) {
       console.log(error);
