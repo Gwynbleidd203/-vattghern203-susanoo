@@ -15,8 +15,5 @@
   "license": "ISC",
   "bin": {
     "susanoo": "./bin/susanoo.js"
-  },
-  "devDependencies": {
-    "parcel-bundler": "^1.12.5"
   }
 }
