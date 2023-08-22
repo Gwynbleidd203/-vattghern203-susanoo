@@ -47,7 +47,7 @@ async function main() {
       console.log('Installing dependencies...')
       execSync('npm install');
 
-      console.log('Removing useless files')
+      console.log('Removing useless files...')
       execSync('npx rimraf ./.git')
       fs.rm(path.join(projectPath, 'bin'), { recursive: true})
 

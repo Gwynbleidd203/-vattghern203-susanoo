@@ -4,7 +4,7 @@
   "description": "A boilerplate creator for front-end developers",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "parcel src/index.html",
     "build": "parcel build index.js"
   },
   "keywords": [
@@ -15,5 +15,8 @@
   "license": "ISC",
   "bin": {
     "susanoo": "./bin/susanoo.js"
+  },
+  "devDependencies": {
+    "parcel": "^2.9.3"
   }
 }
