@@ -23,7 +23,7 @@ try {
     fs.mkdirSync(projectPath)
 
 } catch (err) {
-    
+
     if (err.code === 'EEXIST') {
 
         console.log(`The file ${projectName} already exist in the current directory. Please give it another name.`)
@@ -39,25 +39,31 @@ try {
 
 async function main() {
     try {
-      console.log('Downloading files...');
-      execSync(`git clone --depth 1 ${git_repo} ${projectPath}`)
+        console.log('Charging Chakra... 🔋')
+        console.log('or just Downloading files... ⏬')
+        console.log('\n')
 
-      process.chdir(projectPath)
+        execSync(`git clone --depth 1 ${git_repo} ${projectPath}`)
 
-      console.log('Activating Mangekyo Sharigan...')
-      console.log('AKA Installing dependencies...')
-      execSync('npm install');
+        process.chdir(projectPath)
 
-      console.log('Amaterasu!')
-      console.log('AKA Removing useless files...')
-      execSync('npx rimraf ./.git')
-      fs.rm(path.join(projectPath, 'bin'), { recursive: true})
+        console.log('Activating Mangekyo Sharigan... ⚛')
+        console.log('or just Installing dependencies... 🔧')
+        execSync('npm install');
 
-      console.log('Perfect Susanoo completed.')
-      console.log('AKA The installation is done, this is ready to use !')
+        console.log('Amaterasu! 🔥')
+        console.log('or just Removing useless files... 🗑')
+        execSync('npx rimraf ./.git')
+        fs.rm(path.join(projectPath, 'bin'), { recursive: true })
+
+        console.log('Perfect Susanoo completed. 💪')
+        console.log('AKA The installation is done, this is ready to use ! 😄')
+
+        console.log(`Now just cd ${projectName} and code 😎`)
 
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
 }
+
 main();
