@@ -30,3 +30,7 @@ ol,
 ul {
   list-style: none;
 }
+
+button:hover {
+    opacity: .8;
+}
