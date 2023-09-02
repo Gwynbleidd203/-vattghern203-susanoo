@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import spawn from 'cross-spawn'
-import fs from "fs"
-import path from 'path'
-import picocolors from 'picocolors'
+const spawn = require('cross-spawn');
+const fs = require('fs');
+const path = require('path');
+const picocolors = require('picocolors')
 
 if (process.argv.length < 3) {
 
@@ -50,3 +50,47 @@ try {
 
     process.exit(1)
 }
+
+// get templates dir
+
+const templateDir = path.resolve(__dirname, '../templates');
+fs.cpSync(templateDir, projectDir, {recursive: true})
+
+try {
+    fs.renameSync(
+    
+        path.join(projectDir, 'gitignore'),
+        path.join(projectDir, '.gitignore')
+    )
+
+} catch(err) {
+
+    console.log(err)
+}
+
+console.log(
+    picocolors.cyan('Renaming a few things...')
+)
+
+const projectPackageJson = require(path.join(projectDir, 'package.json'))
+
+projectPackageJson.name = projectName
+
+fs.writeFileSync(
+    path.join(projectDir, 'package.json'),
+    JSON.stringify(projectPackageJson, null, 2)
+)
+
+console.log(
+    picocolors.cyan('Rewriting some stuff...')
+)
+
+spawn.sync('npm', ['install'], { stdio: 'inherit' });
+
+console.log(
+    picocolors.bgCyan('Success! Your new project is ready.\n'
+    ));
+
+console.log(
+    picocolors.bgCyan(`Created ${projectName} at ${projectDir}\n`
+    ));

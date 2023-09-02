@@ -1,6 +1,6 @@
 {
   "name": "susanoo",
-  "version": "1.0.13",
+  "version": "1.0.23",
   "description": "A boilerplate creator for front-end developers",
   "main": "index.js",
   "scripts": {
@@ -14,10 +14,9 @@
   "author": "vattghern203",
   "license": "MIT",
   "bin": {
-    "susanoo": "./bin/susanoo.js"
+    "susanoo": "./bin/kuchyose.js"
   },
   "devDependencies": {
-    "parcel": "^2.9.3",
     "picocolors": "^1.0.0"
   },
   "dependencies": {
