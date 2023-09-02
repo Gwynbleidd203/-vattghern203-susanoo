@@ -1,69 +1,81 @@
 #!/usr/bin/env node
 
-const fs = require("fs")
-const path = require("path")
-const { execSync } = require("child_process")
+const spawn = require('cross-spawn');
+const fs = require('fs');
+const path = require('path');
 
-if (process.argv.length < 3) {
+const templatesDir = path.join(__dirname, '../templates');
 
-    console.log('You have to provide a name to your app. (～￣▽￣)～')
+// Function to display a menu of template options and get user input
+function selectTemplate() {
+  console.log('Available Templates:');
+  const templateOptions = fs.readdirSync(templatesDir);
+  templateOptions.forEach((template, index) => {
+    console.log(`${index + 1}. ${template}`);
+  });
 
-    console.log('For example :')
-    console.log('   npx susanoo dream-app')
-    process.exit()
+  const userInput = prompt('Select a template (enter a number): ');
+
+  if (userInput >= 1 && userInput <= templateOptions.length) {
+    const selectedTemplate = templateOptions[userInput - 1];
+    return selectedTemplate;
+  } else {
+    console.log('Invalid input. Please enter a valid number.');
+    return selectTemplate();
+  }
 }
 
-const projectName = process.argv[2]
-const currentPath = process.cwd()
-const projectPath = path.join(currentPath, projectName)
-const git_repo = 'https://github.com/Vattghern203/-vattghern203-susanoo.git'
+// Prompt function for user input
+function prompt(question) {
+  const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) => {
+    readline.question(question, (answer) => {
+      readline.close();
+      resolve(answer);
+    });
+  });
+}
+
+// The first argument will be the project name.
+const projectName = process.argv[2];
+
+if (!projectName) {
+  console.log('You have to provide a name to your app.');
+  console.log('For example:');
+  console.log('npx create-my-template my-app');
+  process.exit(1);
+}
+
+const projectDir = path.resolve(process.cwd(), projectName);
 
 try {
-
-    fs.mkdirSync(projectPath)
-
+  fs.mkdirSync(projectDir, { recursive: true });
 } catch (err) {
-
-    if (err.code === 'EEXIST') {
-
-        console.log(`The file ${projectName} already exist in the current directory. Please give it another name.`)
-    }
-
-    else {
-
-        console.error(err)
-    }
-
-    process.exit(1)
+  if (err.code === 'EEXIST') {
+    console.log(`The file ${projectName} already exists in the current directory. Please give it another name.`);
+  } else {
+    console.error(err);
+  }
+  process.exit(1);
 }
 
-async function main() {
-    try {
-        console.log('Charging Chakra... 🔋')
-        console.log('or just Downloading files... ⏬')
-        console.log('\n')
+const selectedTemplate = selectTemplate();
 
-        execSync(`git clone --depth 1 ${git_repo} ${projectPath}`)
+const templateDir = path.join(templatesDir, selectedTemplate);
 
-        process.chdir(projectPath)
+// Copy the selected template to the new project directory
+fs.copyFileSync(path.join(templateDir, 'gitignore'), path.join(projectDir, '.gitignore'));
 
-        console.log('Activating Mangekyo Sharigan... ⚛')
-        console.log('or just Installing dependencies... 🔧')
-        execSync('npm install');
+const projectPackageJson = require(path.join(projectDir, 'package.json'));
+projectPackageJson.name = projectName;
 
-        console.log('Amaterasu! 🔥')
-        console.log('or just Removing useless files... 🗑')
-        execSync('npx rimraf ./.git')
-        fs.rm(path.join(projectPath, 'bin'), { recursive: true })
+fs.writeFileSync(path.join(projectDir, 'package.json'), JSON.stringify(projectPackageJson, null, 2));
 
-        console.log('Perfect Susanoo completed. 💪')
-        console.log('AKA The installation is done, this is ready to use ! 😄')
+spawn.sync('npm', ['install'], { stdio: 'inherit', cwd: projectDir });
 
-        console.log(`Now just cd ${projectName} and code 😎`)
-
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-main();
+console.log('Success! Your new project is ready.');
+console.log(`Created ${projectName} at ${projectDir}`);

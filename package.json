@@ -1,6 +1,6 @@
 {
   "name": "susanoo",
-  "version": "1.0.3",
+  "version": "1.0.13",
   "description": "A boilerplate creator for front-end developers",
   "main": "index.js",
   "scripts": {
@@ -12,11 +12,17 @@
     "boilerplate"
   ],
   "author": "vattghern203",
-  "license": "ISC",
+  "license": "MIT",
   "bin": {
     "susanoo": "./bin/susanoo.js"
   },
   "devDependencies": {
-    "parcel": "^2.9.3"
-  }
+    "parcel": "^2.9.3",
+    "picocolors": "^1.0.0"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "susanoo": "^1.0.10"
+  },
+  "type": "commonjs"
 }
